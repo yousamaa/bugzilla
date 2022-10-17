@@ -21,8 +21,8 @@ ActiveRecord::Schema.define(version: 2022_10_16_155358) do
     t.datetime "deadline"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "type", default: "bug", null: false
-    t.string "status", default: "new", null: false
+    t.string "type", default: "Bug", null: false
+    t.string "status", default: "New", null: false
   end
 
   create_table "projects", force: :cascade do |t|
@@ -41,7 +41,7 @@ ActiveRecord::Schema.define(version: 2022_10_16_155358) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "name", default: "", null: false
-    t.string "role", default: "developer", null: false
+    t.string "role", default: "Developer", null: false
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end

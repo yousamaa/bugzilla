@@ -1,3 +1,5 @@
 class Bug < Ticket
-  enum status: { New: 'New', Started: 'Started', Resolved: 'Resolved' }
+  enum status: { neww: 'New', started: 'Started', resolved: 'Resolved' }
+
+  belongs_to :developer
 end

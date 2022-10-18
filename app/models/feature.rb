@@ -1,3 +1,5 @@
 class Feature < Ticket
-  enum status: { New: 'New', Started: 'Started', Completed: 'Completed' }
+  enum status: { neww: 'New', started: 'Started', completed: 'Completed' }
+
+  belongs_to :developer
 end

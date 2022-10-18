@@ -1,4 +1,3 @@
-class Bug < ApplicationRecord
-  enum type: { Bug: 'Bug', Feature: 'Feature' }
-  enum status: { New: 'New', Started: 'Started', Completed: 'Completed', Resolved: 'Resolved' }
+class Bug < Ticket
+  enum status: { New: 'New', Started: 'Started', Resolved: 'Resolved' }
 end

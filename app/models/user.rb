@@ -4,6 +4,5 @@ class User < ApplicationRecord
 
   enum type: { developer: 'Developer', manager: 'Manager', qa: 'QA' }
 
-  has_many :projects, foreign_key: :manager_id, dependent: :destroy
-  has_many :tickets, dependent: :destroy
+  has_many :tickets, foreign_key: 'creator_id', inverse_of: :user, dependent: :nullify
 end

@@ -1,3 +1,3 @@
 class Bug < Ticket
-  enum status: { neww: 'New', started: 'Started', resolved: 'Resolved' }
+  enum status: { New: 'New', Started: 'Started', Resolved: 'Resolved' }
 end

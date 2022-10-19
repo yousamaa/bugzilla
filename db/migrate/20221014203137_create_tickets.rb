@@ -7,7 +7,7 @@ class CreateTickets < ActiveRecord::Migration[5.2]
       t.references :project,         null: false, foreign_key: true
       t.references :creator,         foreign_key: { to_table: :users }
       t.references :assigned_to,     foreign_key: { to_table: :users }
-      t.index [:project_id, :title], unique: true
+      t.index %i[project_id title], unique: true
       t.string :description
       t.datetime :deadline
 

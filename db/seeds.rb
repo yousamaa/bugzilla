@@ -1,26 +1,26 @@
 User.destroy_all
 
 User.create!([{
-  name: Faker::Name.unique.name,
-  email: Faker::Internet.email,
-  type: 'Developer',
-  password: '12345678',
-  password_confirmation: '12345678'
-},
-{
-  name: Faker::Name.unique.name,
-  email: Faker::Internet.email,
-  type: 'Manager',
-  password: '12345678',
-  password_confirmation: '12345678'
-},
-{
-  name: Faker::Name.unique.name,
-  email: Faker::Internet.email,
-  type: 'QA',
-  password: '12345678',
-  password_confirmation: '12345678'
-}])
+               name: Faker::Name.unique.name,
+               email: Faker::Internet.email,
+               type: 'Developer',
+               password: '12345678',
+               password_confirmation: '12345678'
+             },
+              {
+                name: Faker::Name.unique.name,
+                email: Faker::Internet.email,
+                type: 'Manager',
+                password: '12345678',
+                password_confirmation: '12345678'
+              },
+              {
+                name: Faker::Name.unique.name,
+                email: Faker::Internet.email,
+                type: 'QA',
+                password: '12345678',
+                password_confirmation: '12345678'
+              }])
 
 p "Created #{User.count} users"
 

@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 User.destroy_all
 
 User.create!([{
@@ -22,7 +24,7 @@ User.create!([{
                 password_confirmation: '12345678'
               }])
 
-p "Created #{User.count} users"
+Rails.logger.debug "Created #{User.count} users"
 
 Project.destroy_all
 
@@ -30,7 +32,7 @@ Project.destroy_all
   Manager.first.projects.create!(title: "Title #{index}", description: "Description #{index}")
 end
 
-p "Created #{Project.count} projects"
+Rails.logger.debug "Created #{Project.count} projects"
 
 Ticket.destroy_all
 
@@ -42,4 +44,4 @@ Ticket.destroy_all
                              description: "Ticket Description #{index}")
 end
 
-p "Created #{Ticket.count} tickets"
+Rails.logger.debug "Created #{Ticket.count} tickets"

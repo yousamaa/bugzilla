@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Ticket < ApplicationRecord
   enum type: { Bug: 'Bug', Feature: 'Feature' }
 

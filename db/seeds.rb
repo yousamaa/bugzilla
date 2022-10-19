@@ -37,11 +37,12 @@ Rails.logger.debug "Created #{Project.count} projects"
 Ticket.destroy_all
 
 3.times do |index|
-  User.first.tickets.create!(title: "Ticket Title #{index}",
-                             type: 'Bug',
-                             status: 'New',
-                             project_id: index + 1,
-                             description: "Ticket Description #{index}")
+  User.last.tickets.create!(title: "Ticket Title #{index}",
+                            type: 'Bug',
+                            status: 'New',
+                            project_id: index + 1,
+                            assigned_to_id: 1,
+                            description: "Ticket Description #{index}")
 end
 
 Rails.logger.debug "Created #{Ticket.count} tickets"

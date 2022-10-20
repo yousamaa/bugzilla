@@ -7,5 +7,8 @@ class Ticket < ApplicationRecord
   belongs_to :developer,  class_name: 'User', foreign_key: 'assigned_to_id', inverse_of: :tickets
   belongs_to :project
 
-  has_one_attached :screen_shot
+  has_one_attached :screen_shot, content_type: %i[png gif]
+
+  validates :title, :type, :status, presence: true
+  validates :title, uniqueness: { scope: :project }
 end

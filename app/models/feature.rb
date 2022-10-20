@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 class Feature < Ticket
-  enum status: { neww: 'New', started: 'Started', completed: 'Completed' }
+  enum status: { New: 'New', Started: 'Started', Completed: 'Completed' }
 end

@@ -4,6 +4,10 @@
   </div>
   <div class="card-body">
     <p class="card-text"><%= @project.description %></p>
+    <% @project.tickets.each do |ticket| %>
+      <%= ticket.title %>
+      <br>
+    <% end %>
   </div>
 </div>
 

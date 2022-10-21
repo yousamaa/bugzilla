@@ -11,6 +11,17 @@
     </div>
   <% end %>
 
+  <%= form.text_field :title, autocomplete: "title", class: "form-control", placeholder: "Title" %>
+  <br>
+  <%= form.label :type %>
+  <br>
+  <%= form.select :type, Ticket.types.keys, include_blank: true %>
+  <br><br>
+  <%= form.text_field :description, autocomplete: "description", class: "form-control", placeholder: "Description" %>
+  <br>
+  <%= form.date_field :deadline, as: :date, value: form.object.try(:strftime,"%m/%d/%Y"), class: 'form-control' %> 
+  <br>
+
   <div class="actions">
     <%= form.submit %>
   </div>

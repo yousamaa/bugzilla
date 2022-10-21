@@ -1,0 +1,10 @@
+<% if user_signed_in? %>
+  <strong>Name:</strong>
+  <%= current_user.name %>
+  <br>
+  <strong>User Role:</strong>
+  <%= current_user.type %>
+  <br>
+  <strong>User Email:</strong>
+  <%= current_user.email %>
+<% end %>

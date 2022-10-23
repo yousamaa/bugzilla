@@ -16,12 +16,13 @@ class ProjectsController < ApplicationController
   def edit; end
 
   def create
-    @project = Project.new(project_params)
+    @project = current_user.projects.build(project_params)
 
     if @project.save
       redirect_to project_url(@project)
       flash[:notice] = 'Project was successfully created.'
     else
+      redirect_to new_project_path
       flash[:alert] = 'Project was not created.'
     end
   end
@@ -51,6 +52,6 @@ class ProjectsController < ApplicationController
   end
 
   def project_params
-    params.require(:product).permit(:title, :description)
+    params.require(:project).permit(:title, :description)
   end
 end

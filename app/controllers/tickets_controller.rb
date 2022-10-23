@@ -22,6 +22,7 @@ class TicketsController < ApplicationController
       redirect_to ticket_url(@ticket)
       flash[:notice] = 'Ticket was successfully created.'
     else
+      redirect_to new_ticket_path
       flash[:alert] = 'Ticket was not created.'
     end
   end

@@ -16,7 +16,20 @@
   <%= form.label :type %>
   <br>
   <%= form.select :type, Ticket.types.keys, include_blank: true %>
-  <br><br>
+  <br>
+  <% if ticket.Bug? %>
+    <br>
+    <%= form.label :status %>
+    <br>
+    <%= form.select :status, Bug.statuses.keys, include_blank: true %>
+    <br><br>
+  <% else %>
+    <br>
+    <%= form.label :status %>
+    <br>
+    <%= form.select :status, Feature.statuses.keys, include_blank: true %>
+    <br><br>
+  <% end %>
   <%= form.text_field :description, autocomplete: "description", class: "form-control", placeholder: "Description" %>
   <br>
   <%= form.date_field :deadline, as: :date, value: form.object.try(:strftime,"%m/%d/%Y"), class: 'form-control' %> 
@@ -24,6 +37,10 @@
   <%= form.label :project %>
   <br>
   <%= form.select :project_id, Project.all.map { |p| [p.title, p.id] }, include_blank: true %>
+  <br><br>
+  <%= form.label :screen_shot %>
+  <br>
+  <%= form.file_field :screen_shot %>
   <br><br>
 
   <div class="actions">

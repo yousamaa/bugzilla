@@ -7,4 +7,5 @@ Rails.application.routes.draw do
   resources :tickets
   resources :bugs, controller: 'tickets'
   resources :features, controller: 'tickets'
+  resource :project_enrollments
 end

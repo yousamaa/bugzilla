@@ -15,7 +15,10 @@
     <br>
     <%= form.text_field :description, autocomplete: "description", class: "form-control", placeholder: "Description" %>
     <br>
-    
+    <%= form.label :developer %>
+    <br>
+    <%= form.select :developer_id, Developer.all.map { |d| [d.name, d.id] }, include_blank: true %>
+    <br><br>
     <div class="actions">
       <%= form.submit %>
     </div>

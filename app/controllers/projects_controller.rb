@@ -2,6 +2,7 @@
 
 class ProjectsController < ApplicationController
   before_action :set_project, only: %i[show edit update destroy]
+  after_action :set_project_enrollment, only: %i[edit update create]
 
   def index
     @projects = policy_scope(Project)
@@ -56,5 +57,13 @@ class ProjectsController < ApplicationController
 
   def project_params
     params.require(:project).permit(:title, :description)
+  end
+
+  def project_enrollment_params
+    params.require(:project).permit(:developer_id)
+  end
+
+  def set_project_enrollment
+    @project.project_enrollments.create!(project_enrollment_params)
   end
 end

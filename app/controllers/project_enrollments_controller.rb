@@ -1,7 +1,7 @@
-class ProjectEnrollmentsController < ApplicationController
-  def create
-  end
+# frozen_string_literal: true
 
-  def destroy
-  end
+class ProjectEnrollmentsController < ApplicationController
+  def create; end
+
+  def destroy; end
 end

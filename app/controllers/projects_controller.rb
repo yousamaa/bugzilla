@@ -4,7 +4,7 @@ class ProjectsController < ApplicationController
   before_action :set_project, only: %i[show edit update destroy]
 
   def index
-    @projects = Project.all
+    @projects = policy_scope(Project)
   end
 
   def show; end
@@ -17,6 +17,7 @@ class ProjectsController < ApplicationController
 
   def create
     @project = current_user.projects.build(project_params)
+    authorize @project
 
     if @project.save
       redirect_to project_url(@project)
@@ -49,6 +50,7 @@ class ProjectsController < ApplicationController
 
   def set_project
     @project = Project.find(params[:id])
+    authorize @project
   end
 
   def project_params

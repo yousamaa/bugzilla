@@ -11,4 +11,22 @@ class Ticket < ApplicationRecord
 
   validates :title, :type, :status, presence: true
   validates :title, uniqueness: { scope: :project }
+
+  after_commit :add_default_screen_shot, on: %i[create update]
+
+  def screen_shot_thumbnail
+    screen_shot
+  end
+
+  def add_default_screen_shot
+    return if screen_shot.attached?
+
+    screen_shot.attach(
+      io: File.open(
+        Rails.root.join(
+          'app', 'assets', 'images', 'default_ticket.jpg'
+        )
+      ), filename: 'default_ticket.jpg', content_type: 'image/jpg'
+    )
+  end
 end

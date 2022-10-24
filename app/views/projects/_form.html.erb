@@ -1,17 +1,26 @@
-<%= form_with(model: project, local: true) do |form| %>
-  <% if project.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(project.errors.count, "error") %> prohibited this project from being saved:</h2>
+<div class="card-body">
+  <%= form_with(model: project, local: true) do |form| %>
+    <% if project.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(project.errors.count, "error") %> prohibited this project from being saved:</h2>
 
-      <ul>
-      <% project.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
+        <ul>
+        <% project.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+    <%= form.text_field :title, autocomplete: "title", class: "form-control", placeholder: "Title" %>
+    <br>
+    <%= form.text_field :description, autocomplete: "description", class: "form-control", placeholder: "Description" %>
+    <br>
+    <%= form.label :developer %>
+    <br>
+    <%= form.select :developer_id, Developer.all.map { |d| [d.name, d.id] }, include_blank: true %>
+    <br><br>
+    <div class="actions">
+      <%= form.submit %>
     </div>
   <% end %>
-
-  <div class="actions">
-    <%= form.submit %>
-  </div>
-<% end %>
+</div>

@@ -1,23 +1,22 @@
-<h1>Tickets</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
+<div class="card">
+  <div class="card-header">
+    <h1>Tickets</h1>
+  </div>
+  <div class="card-body">
     <% @tickets.each do |ticket| %>
-      <tr>
-        <td><%= link_to 'Show', ticket %></td>
-        <td><%= link_to 'Edit', edit_ticket_path(ticket) %></td>
-        <td><%= link_to 'Destroy', ticket, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title"><strong>Ticket Title: </strong><%= ticket.title %></h5>
+          <p class="card-text"><strong>Ticket Type: </strong><%= ticket.type %></p>
+          <p class="card-text"><strong>Ticket Status: </strong><%= ticket.status %></p>
+          <p class="card-text"><strong>Ticket Description: : </strong><%= ticket.description %></p>
+          <p class="card-text"><small class="text-muted">Deadline: <%= ticket.deadline %></small></p>
+          <%= link_to 'Show', ticket, class: 'btn btn-info' %> | 
+          <%= link_to 'Edit', edit_ticket_path(ticket), class: 'btn btn-primary' %> | 
+          <%= link_to 'Destroy', ticket, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+        </div>
+      </div>
+      <br>
     <% end %>
-  </tbody>
-</table>
-
-<br>
-
-<%= link_to 'New Ticket', new_ticket_path %>
+  </div>
+</div>

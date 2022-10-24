@@ -1,2 +1,12 @@
-<%= link_to 'Edit', edit_ticket_path(@ticket) %> |
-<%= link_to 'Back', tickets_path %>
+<div class="card mb-3">
+  <%= image_tag(@ticket.screen_shot_thumbnail, class: 'card-img-top') %>
+  <div class="card-body">
+    <h5 class="card-title"><strong>Ticket Title: </strong><%= @ticket.title %></h5>
+    <p class="card-text"><strong>Ticket Type: </strong><%= @ticket.type %></p>
+    <p class="card-text"><strong>Ticket Status: </strong><%= @ticket.status %></p>
+    <p class="card-text"><strong>Ticket Description: </strong><%= @ticket.description %></p>
+    <p class="card-text"><small class="text-muted">Deadline: <%= @ticket.deadline %></small></p>
+    <%= link_to 'Edit', edit_ticket_path(@ticket), class: 'btn btn-warning' %> |
+    <%= link_to 'Back', tickets_path, class: 'btn btn-info' %>
+  </div>
+</div>

@@ -2,51 +2,49 @@
 
 class ProjectsController < ApplicationController
   before_action :set_project, only: %i[show edit update destroy]
+  after_action :set_project_enrollment, only: %i[update create]
 
   def index
-    @projects = Project.all
+    @projects = policy_scope(Project)
   end
 
   def show; end
 
   def new
     @project = Project.new
+    authorize @project
   end
 
   def edit; end
 
   def create
-    @project = Project.new(project_params)
+    @project = current_user.projects.build(project_params)
+    authorize @project
 
-    respond_to do |format|
-      if @project.save
-        format.html { redirect_to project_url(@project), notice: 'Project was successfully created.' }
-        format.json { render :show, status: :created, location: @project }
-      else
-        format.html { render :new, status: :unprocessable_entity }
-        format.json { render json: @project.errors, status: :unprocessable_entity }
-      end
+    if @project.save
+      redirect_to project_url(@project)
+      flash[:notice] = 'Project was successfully created.'
+    else
+      redirect_to new_project_path
+      flash[:alert] = 'Project was not created.'
     end
   end
 
   def update
-    respond_to do |format|
-      if @project.update(project_params)
-        format.html { redirect_to project_url(@project), notice: 'Project was successfully updated.' }
-        format.json { render :show, status: :ok, location: @project }
-      else
-        format.html { render :edit, status: :unprocessable_entity }
-        format.json { render json: @project.errors, status: :unprocessable_entity }
-      end
+    if @project.update(project_params)
+      redirect_to project_url(@project)
+      flash[:notice] = 'Project was successfully updated.'
+    else
+      flash[:alert] = 'Project was not updated.'
     end
   end
 
   def destroy
-    @project.destroy
-
-    respond_to do |format|
-      format.html { redirect_to projects_url, notice: 'Project was successfully destroyed.' }
-      format.json { head :no_content }
+    if @project.destroy
+      redirect_to projects_url
+      flash[:notice] = 'Project was successfully destroyed.'
+    else
+      flash[:alert] = 'Project was not destroyed.'
     end
   end
 
@@ -54,9 +52,20 @@ class ProjectsController < ApplicationController
 
   def set_project
     @project = Project.find(params[:id])
+    authorize @project
   end
 
   def project_params
-    params.fetch(:project, {})
+    params.require(:project).permit(:title, :description)
+  end
+
+  def project_enrollment_params
+    params.require(:project).permit(:developer_id)
+  end
+
+  def set_project_enrollment
+    return if ProjectEnrollment.exists?(developer_id: :developer_id)
+
+    @project.project_enrollments.create(project_enrollment_params)
   end
 end

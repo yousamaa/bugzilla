@@ -1,29 +1,22 @@
-<h1>Projects</h1>
-
-<table>
-  <thead>
-    <tr>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
-
-  <tbody>
+<div class="card">
+  <div class="card-header">
+    <h1>Projects</h1>
+  </div>
+  <div class="card-body">
     <% @projects.each do |project| %>
-      <%= project.title %>
-      <br>
-      <%= project.description %>
-      <br>
-      <% project.tickets.each do |ticket| %>
-        <%= ticket.title %>
-        <br>
-      <% end %>
-      <%= link_to 'Show', project %> | 
-      <%= link_to 'Edit', edit_project_path(project) %> | 
-      <%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' } %>
+      <div class="card">
+        <div class="card-body">
+          <h5 class="card-title"><%= project.title %></h5>
+          <p class="card-text"><%= project.description %></p>
+          <%= link_to 'Show', project, class: 'btn btn-info' %> | 
+          <%= link_to 'Edit', edit_project_path(project), class: 'btn btn-primary' %> | 
+          <%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+        </div>
+      </div>
       <br>
     <% end %>
-  </tbody>
-</table>
+  </div>
+</div>
 
 <br>
 

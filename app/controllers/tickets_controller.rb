@@ -4,19 +4,21 @@ class TicketsController < ApplicationController
   before_action :set_ticket, only: %i[show edit update destroy]
 
   def index
-    @tickets = Ticket.all
+    @tickets = policy_scope(Ticket)
   end
 
   def show; end
 
   def new
     @ticket = Ticket.new
+    authorize @ticket, policy_class: TicketPolicy
   end
 
   def edit; end
 
   def create
-    @ticket = Ticket.new(ticket_params)
+    @ticket = current_user.tickets.build(ticket_params)
+    authorize @ticket, policy_class: TicketPolicy
 
     if @ticket.save
       redirect_to ticket_url(@ticket)
@@ -49,6 +51,7 @@ class TicketsController < ApplicationController
 
   def set_ticket
     @ticket = Ticket.find(params[:id])
+    authorize @ticket, policy_class: TicketPolicy
   end
 
   def ticket_params

@@ -13,7 +13,9 @@ class TicketPolicy < ApplicationPolicy
   end
 
   def show?
-    user.tickets.include?(record)
+    return user.tickets.include?(record) unless user.Manager?
+
+    false
   end
 
   def create?

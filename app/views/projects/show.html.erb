@@ -3,13 +3,22 @@
     <h1><%= @project.title %></h1>
   </div>
   <div class="card-body">
-    <p class="card-text"><%= @project.description %></p>
+    <p class="card-text"><strong>Description: </strong><%= @project.description %></p>
+    <p class="card-text"><strong>Project Manager: </strong><%= User.find(@project.manager_id).name %></p>
+    <p class="card-text"><strong>Active Tickets: </strong></p>
     <% @project.tickets.each do |ticket| %>
-      <%= ticket.title %>
-      <br>
+      <div class="card">
+        <div class="card-body">
+          <p class="card-text"><strong>Ticket Title: </strong><%= ticket.title %></p>
+          <p class="card-text"><strong>Ticket Description: </strong><%= ticket.description %></p>
+          <p class="card-text"><strong>Ticket Type: </strong><%= ticket.type %></p>
+          <p class="card-text"><strong>Ticket Status: </strong><%= ticket.status %></p>
+          <%= link_to 'Show', ticket, class: 'btn btn-primary' %>
+        </div>
+      </div>
     <% end %>
+    <br>
+    <%= link_to 'Edit', edit_project_path(@project), class: 'btn btn-warning' %> |
+    <%= link_to 'Back', projects_path, class: 'btn btn-info' %>
   </div>
 </div>
-
-<%= link_to 'Edit', edit_project_path(@project) %> |
-<%= link_to 'Back', projects_path %>

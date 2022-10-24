@@ -2,7 +2,7 @@
 
 class ProjectsController < ApplicationController
   before_action :set_project, only: %i[show edit update destroy]
-  after_action :set_project_enrollment, only: %i[edit update create]
+  after_action :set_project_enrollment, only: %i[update create]
 
   def index
     @projects = policy_scope(Project)
@@ -64,6 +64,8 @@ class ProjectsController < ApplicationController
   end
 
   def set_project_enrollment
+    return unless ProjectEnrollment.find_by(developer_id: :developer_id)
+
     @project.project_enrollments.create!(project_enrollment_params)
   end
 end

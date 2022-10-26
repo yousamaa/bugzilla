@@ -21,7 +21,12 @@
           <p class="card-text"><strong>Ticket Description: </strong><%= ticket.description %></p>
           <p class="card-text"><strong>Ticket Type: </strong><%= ticket.type %></p>
           <p class="card-text"><strong>Ticket Status: </strong><%= ticket.status %></p>
-          <%= link_to 'Show', ticket, class: 'btn btn-primary' %>
+          <%= link_to 'Show', ticket, class: 'btn btn-primary mb-3' %>
+          <% @t = ticket %>
+          <%= form_for @t do |f| %>
+            <%= f.hidden_field :assigned_to_id, :value => current_user.id %>
+            <%= f.submit 'Assign Ticket to Yourself', class: 'btn btn-success' %>
+          <% end %>
         </div>
       </div>
       <br>

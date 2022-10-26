@@ -67,8 +67,6 @@ class ProjectsController < ApplicationController
   end
 
   def set_project_enrollment
-    return if ProjectEnrollment.exists?(developer_id: :developer_id)
-
     @project.project_enrollments.create(project_enrollment_params)
   end
 end

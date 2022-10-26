@@ -5,6 +5,7 @@ class TicketsController < ApplicationController
 
   def index
     @tickets = policy_scope(Ticket)
+    authorize @tickets, policy_class: TicketPolicy
   end
 
   def show; end
@@ -57,6 +58,11 @@ class TicketsController < ApplicationController
   end
 
   def ticket_params
-    params.require(:ticket).permit(:title, :type, :status, :project_id, :description, :deadline)
+    # if @ticket.Bug?
+    #   params.require(:bug).permit(:title, :type, :status, :project_id, :description, :deadline, :screen_shot, :assigned_to_id)
+    # else
+    #   params.require(:feature).permit(:title, :type, :status, :project_id, :description, :deadline, :screen_shot, :assigned_to_id)
+    # end
+    params.require(:feature).permit(:title, :type, :status, :project_id, :description, :deadline, :screen_shot, :assigned_to_id)
   end
 end

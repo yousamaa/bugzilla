@@ -3,4 +3,6 @@
 class ProjectEnrollment < ApplicationRecord
   belongs_to :developer, class_name: 'User'
   belongs_to :project
+
+  validates :developer, uniqueness: { scope: :project }
 end

@@ -4,12 +4,14 @@ class TicketPolicy < ApplicationPolicy
   class Scope < Scope
     # NOTE: Be explicit about which records you allow access to!
     def resolve
-      if user.QA?
-        scope.all
-      else
-        scope.where(assigned_to_id: user.id) && scope.where(assigned_to_id: nil)
-      end
+      return unless user.QA?
+
+      scope.where(creator_id: user.id)
     end
+  end
+
+  def index?
+    user.QA?
   end
 
   def show?

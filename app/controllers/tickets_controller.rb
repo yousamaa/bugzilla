@@ -31,7 +31,7 @@ class TicketsController < ApplicationController
   end
 
   def update
-    if @ticket.update(ticket_params)
+    if @ticket.update(edit_ticket_params)
       flash[:notice] = 'Ticket was successfully updated.'
       render :show
     else
@@ -58,6 +58,14 @@ class TicketsController < ApplicationController
   end
 
   def ticket_params
-    params.permit(:title, :type, :status, :project_id, :description, :deadline, :screen_shot, :assigned_to_id)
+    params.require(:ticket).permit(:title, :type, :status, :project_id, :description, :deadline, :screen_shot, :assigned_to_id)
+  end
+
+  def edit_ticket_params
+    if @ticket.Bug?
+      params.require(:bug).permit(:title, :type, :status, :project_id, :description, :deadline, :screen_shot, :assigned_to_id)
+    else
+      params.require(:feature).permit(:title, :type, :status, :project_id, :description, :deadline, :screen_shot, :assigned_to_id)
+    end
   end
 end

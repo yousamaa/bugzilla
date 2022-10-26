@@ -37,6 +37,5 @@ Ticket.destroy_all
                             type: 'Bug',
                             status: 'New',
                             project_id: 2,
-                            assigned_to_id: 1,
                             description: "Ticket Description #{index}")
 end

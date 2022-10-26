@@ -1,0 +1,11 @@
+development: 
+  cloud_name: "dsbcurbzx"
+  api_key: "656336283499898"
+  api_secret: "pSTT9lhj0LPb2HY5SA-mfjR3WfY"
+  secure: true
+
+production:
+  cloud_name: "dsbcurbzx"
+  api_key: "656336283499898"
+  api_secret: "pSTT9lhj0LPb2HY5SA-mfjR3WfY"
+  secure: true

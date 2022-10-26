@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card mb-3">
   <div class="card-header">
     <h1>Project Title: <i><%= @project.title %></i></h1>
   </div>
@@ -24,8 +24,8 @@
           <%= link_to 'Show', ticket, class: 'btn btn-primary' %>
         </div>
       </div>
+      <br>
     <% end %>
-    <br>
     <%= link_to 'Edit', edit_project_path(@project), class: 'btn btn-warning' %> |
     <%= link_to 'Back', projects_path, class: 'btn btn-info' %>
   </div>

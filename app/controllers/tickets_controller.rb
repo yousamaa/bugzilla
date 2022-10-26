@@ -21,29 +21,31 @@ class TicketsController < ApplicationController
     authorize @ticket, policy_class: TicketPolicy
 
     if @ticket.save
-      redirect_to ticket_url(@ticket)
       flash[:notice] = 'Ticket was successfully created.'
+      render :show
     else
-      redirect_to new_ticket_path
       flash[:alert] = 'Ticket was not created.'
+      render :new
     end
   end
 
   def update
     if @ticket.update(ticket_params)
-      redirect_to ticket_url(@ticket)
       flash[:notice] = 'Ticket was successfully updated.'
+      render :show
     else
       flash[:alert] = 'Ticket was not updated.'
+      render :edit
     end
   end
 
   def destroy
     if @ticket.destroy
-      redirect_to tickets_url
       flash[:notice] = 'Ticket was successfully destroyed.'
+      render :index
     else
       flash[:alert] = 'Ticket was not destroyed.'
+      render :show
     end
   end
 

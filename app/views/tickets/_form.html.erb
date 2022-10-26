@@ -1,49 +1,41 @@
 <%= form_with(model: ticket, local: true) do |form| %>
   <% if ticket.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(ticket.errors.count, "error") %> prohibited this ticket from being saved:</h2>
-
-      <ul>
+    <div id="error_explanation" class="alert alert-danger alert-dismissible" role="alert">
+      <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+      <strong>
+        <%= I18n.t("errors.messages.not_saved",
+                  count: ticket.errors.count,
+                  resource: ticket.class.model_name.human.downcase)
+        %>
+      </strong>
       <% ticket.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
+        <div>
+          <%= message %>
+        </div>
       <% end %>
-      </ul>
     </div>
   <% end %>
 
-  <%= form.text_field :title, autocomplete: "title", class: "form-control", placeholder: "Title" %>
-  <br>
-  <%= form.label :type %>
-  <br>
+  <%= form.text_field :title, autocomplete: "title", class: "form-control mb-3", placeholder: "Title" %>
+
+  <strong><%= form.label :type %></strong>
   <%= form.select :type, Ticket.types.keys, include_blank: true %>
-  <br>
-  <% if ticket.Bug? %>
-    <br>
-    <%= form.label :status %>
-    <br>
-    <%= form.select :status, Bug.statuses.keys, include_blank: true %>
-    <br><br>
-  <% else %>
-    <br>
-    <%= form.label :status %>
-    <br>
-    <%= form.select :status, Feature.statuses.keys, include_blank: true %>
-    <br><br>
-  <% end %>
-  <%= form.text_field :description, autocomplete: "description", class: "form-control", placeholder: "Description" %>
-  <br>
-  <%= form.date_field :deadline, as: :date, value: form.object.try(:strftime,"%m/%d/%Y"), class: 'form-control' %> 
-  <br>
-  <%= form.label :project %>
-  <br>
-  <%= form.select :project_id, Project.all.map { |p| [p.title, p.id] }, include_blank: true %>
-  <br><br>
-  <%= form.label :screen_shot %>
-  <br>
-  <%= form.file_field :screen_shot %>
   <br><br>
 
+  <%= form.text_field :description, autocomplete: "description", class: "form-control mb-3", placeholder: "Description" %>
+
+  <%= form.date_field :deadline, as: :date, value: form.object.try(:strftime,"%m/%d/%Y"), class: 'form-control mb-3' %> 
+
+  <strong><%= form.label :project %></strong>
+  <%= form.select :project_id, Project.all.map { |p| [p.title, p.id] }, include_blank: true %>
+  <br><br>
+
+  <strong><%= form.label :screen_shot %></strong>
+  <%= form.file_field :screen_shot, class: "form-control mb-3", accept: 'image/png,image/gif', required: true %>
+
+  <%= form.hidden_field :status, :value => 'New' %>
+
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit class: 'btn btn-success' %>
   </div>
 <% end %>

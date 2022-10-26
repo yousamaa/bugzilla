@@ -41,6 +41,7 @@ ActiveRecord::Schema.define(version: 2022_10_18_224922) do
     t.bigint "project_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["developer_id", "project_id"], name: "index_project_enrollments_on_developer_id_and_project_id", unique: true
     t.index ["developer_id"], name: "index_project_enrollments_on_developer_id"
     t.index ["project_id"], name: "index_project_enrollments_on_project_id"
   end

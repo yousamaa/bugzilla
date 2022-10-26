@@ -8,9 +8,11 @@
         <div class="card-body">
           <h5 class="card-title"><%= project.title %></h5>
           <p class="card-text"><%= project.description %></p>
-          <%= link_to 'Show', project, class: 'btn btn-info' %> | 
-          <%= link_to 'Edit', edit_project_path(project), class: 'btn btn-primary' %> | 
-          <%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+          <%= link_to 'Show', project, class: 'btn btn-info' %>
+            <% if current_user.Manager? %>
+             | <%= link_to 'Edit', edit_project_path(project), class: 'btn btn-primary' %> | 
+              <%= link_to 'Destroy', project, method: :delete, data: { confirm: 'Are you sure?' }, class: 'btn btn-danger' %>
+          <% end %>
         </div>
       </div>
       <br>

@@ -1,4 +1,4 @@
-<div class="card">
+<div class="card mb-3">
   <div class="card-header">
     <h1>Project Title: <i><%= @project.title %></i></h1>
   </div>
@@ -21,11 +21,19 @@
           <p class="card-text"><strong>Ticket Description: </strong><%= ticket.description %></p>
           <p class="card-text"><strong>Ticket Type: </strong><%= ticket.type %></p>
           <p class="card-text"><strong>Ticket Status: </strong><%= ticket.status %></p>
-          <%= link_to 'Show', ticket, class: 'btn btn-primary' %>
+          <% if current_user.Developer? || current_user.QA? %>
+            <%= link_to 'Show', ticket, class: 'btn btn-primary mb-3' %>
+          <% end %>
+          <% if current_user.Developer? %>
+            <%= form_for ticket do |f| %>
+              <%= f.hidden_field :assigned_to_id, :value => current_user.id %>
+              <%= f.submit 'Assign Ticket to Yourself', class: 'btn btn-success' %>
+            <% end %>
+          <% end %>
         </div>
       </div>
+      <br>
     <% end %>
-    <br>
     <%= link_to 'Edit', edit_project_path(@project), class: 'btn btn-warning' %> |
     <%= link_to 'Back', projects_path, class: 'btn btn-info' %>
   </div>

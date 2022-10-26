@@ -1,12 +1,23 @@
 <div class="card mb-3">
-  <%= image_tag(@ticket.screen_shot_thumbnail, class: 'card-img-top') %>
+  <% if @ticket.screen_shot.attached? %>
+    <%= image_tag(@ticket.screen_shot_thumbnail, class: 'card-img-top') %>
+  <% end %>
   <div class="card-body">
     <h5 class="card-title"><strong>Ticket Title: </strong><%= @ticket.title %></h5>
     <p class="card-text"><strong>Ticket Type: </strong><%= @ticket.type %></p>
     <p class="card-text"><strong>Ticket Status: </strong><%= @ticket.status %></p>
     <p class="card-text"><strong>Ticket Description: </strong><%= @ticket.description %></p>
     <p class="card-text"><small class="text-muted">Deadline: <%= @ticket.deadline %></small></p>
-    <%= link_to 'Edit', edit_ticket_path(@ticket), class: 'btn btn-warning' %> |
-    <%= link_to 'Back', tickets_path, class: 'btn btn-info' %>
+    <%= form_for @ticket do |f| %>
+      <% if @ticket.Bug? %>
+        <%= f.label :status %>
+        <%= f.select :status, Bug.statuses.keys, include_blank: true %>
+      <% else %>
+        <%= f.label :status %>
+        <%= f.select :status, Feature.statuses.keys, include_blank: true %>
+      <% end %>
+      <%= f.submit 'Set Status', class: 'btn btn-success' %>
+    <% end %>
+    <%= link_to 'Edit', edit_ticket_path(@ticket), class: 'btn btn-warning' %>
   </div>
 </div>

@@ -15,7 +15,7 @@ class ProjectPolicy < ApplicationPolicy
   end
 
   def show?
-    user.QA? || (user.Manager? && user.projects.include?(record))
+    user.QA? || (user.Manager? || user.projects.include?(record))
   end
 
   def create?

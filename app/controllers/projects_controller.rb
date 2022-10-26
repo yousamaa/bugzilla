@@ -2,7 +2,6 @@
 
 class ProjectsController < ApplicationController
   before_action :set_project, only: %i[show edit update destroy]
-  after_action :set_project_enrollment, only: %i[update create]
 
   def index
     @projects = policy_scope(Project)
@@ -22,29 +21,33 @@ class ProjectsController < ApplicationController
     authorize @project
 
     if @project.save
-      redirect_to project_url(@project)
+      set_project_enrollment
       flash[:notice] = 'Project was successfully created.'
+      render :show
     else
-      redirect_to new_project_path
       flash[:alert] = 'Project was not created.'
+      render :new
     end
   end
 
   def update
     if @project.update(project_params)
-      redirect_to project_url(@project)
+      set_project_enrollment
       flash[:notice] = 'Project was successfully updated.'
+      render :show
     else
       flash[:alert] = 'Project was not updated.'
+      render :edit
     end
   end
 
   def destroy
     if @project.destroy
-      redirect_to projects_url
       flash[:notice] = 'Project was successfully destroyed.'
+      render :index
     else
       flash[:alert] = 'Project was not destroyed.'
+      render :show
     end
   end
 
@@ -64,8 +67,6 @@ class ProjectsController < ApplicationController
   end
 
   def set_project_enrollment
-    return if ProjectEnrollment.exists?(developer_id: :developer_id)
-
     @project.project_enrollments.create(project_enrollment_params)
   end
 end
